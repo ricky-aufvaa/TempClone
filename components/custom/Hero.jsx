@@ -10,12 +10,12 @@ import { OpenDialogContext } from "@/context/OpenDialogContext"
 export const Hero = () =>{
     const [userInput, setUserInput] = useState("")
     const [message,setMessage] = useState(null)
-    const {userDetail,setUserDetail} = useContext(UserDetailsContext)
+    const {userDetails,setUserDetails} = useContext(UserDetailsContext)
     // const [openDialog,setOpenDialog] = useState(false)
     const {openDialog,setOpenDialog} = useContext(OpenDialogContext)
 
     const onGenerate = (input) =>{
-        if(!userDetail?.name){
+        if(!userDetails?.name){
             setOpenDialog(true)
             return
         }

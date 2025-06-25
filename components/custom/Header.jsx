@@ -9,10 +9,10 @@ import { UserDetailsContext } from "@/context/UserDetailsContext";
 import { OpenDialogContext } from "@/context/OpenDialogContext";
 
 export function Header() {
-    const {userDetail,setUserDetail} = useContext(UserDetailsContext)
+    const {userDetails,setUserDetails} = useContext(UserDetailsContext)
     const {openDialog,setOpenDialog} = useContext(OpenDialogContext)
     const handleSingin = () => {
-        if(!userDetail?.name){
+        if(!userDetails?.name){
             setOpenDialog(true)
             return
         }
@@ -58,7 +58,8 @@ export function Header() {
             />
           </Link>
         </Button>
-        <Button  className="text-white hover:text-black transition-all duration-400 cursor-pointer" style={{ backgroundColor: Colors.BLUE }} onClick={() =>handleSingin()}>Get Started</Button>
+        {!userDetails && <Button  className="text-white hover:text-black transition-all duration-400 cursor-pointer" style={{ backgroundColor: Colors.BLUE }} onClick={() =>handleSingin()}>Get Started</Button>}
+        {userDetails && <Button  className="text-white hover:text-black transition-all duration-400 cursor-cell " style={{ backgroundColor: Colors.BLUE }} >Type away!</Button>}
       </div>
     </div>
   );

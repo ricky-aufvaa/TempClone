@@ -22,11 +22,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID_KEY}>
       <Provider>
         {children}
       </Provider>
-        </GoogleOAuthProvider>
       </body>
     </html>
   );
