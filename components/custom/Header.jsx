@@ -1,10 +1,24 @@
+"use client"
 import { Button } from "../ui/button";
 import Lookup from "../../data/Lookup";
 import Link from "next/link";
 import Image from "next/image";
 import Colors from "@/data/Colors";
+import { useContext } from "react";
+import { UserDetailsContext } from "@/context/UserDetailsContext";
+import { OpenDialogContext } from "@/context/OpenDialogContext";
 
 export function Header() {
+    const {userDetail,setUserDetail} = useContext(UserDetailsContext)
+    const {openDialog,setOpenDialog} = useContext(OpenDialogContext)
+    const handleSingin = () => {
+        if(!userDetail?.name){
+            setOpenDialog(true)
+            return
+        }
+    }
+
+
   return (
     //outer
     <div className="flex justify-between p-4">   
@@ -44,7 +58,7 @@ export function Header() {
             />
           </Link>
         </Button>
-        <Button className="text-white hover:text-black transition-all duration-400 cursor-pointer" style={{ backgroundColor: Colors.BLUE }}>Get Started</Button>
+        <Button  className="text-white hover:text-black transition-all duration-400 cursor-pointer" style={{ backgroundColor: Colors.BLUE }} onClick={() =>handleSingin()}>Get Started</Button>
       </div>
     </div>
   );

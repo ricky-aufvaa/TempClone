@@ -2,10 +2,39 @@
 import Colors from "@/data/Colors"
 import Lookup from "@/data/Lookup"
 import { ArrowRight, Link } from "lucide-react"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { SignInDialog } from "./SignInDialog"
+import { UserDetailsContext } from "@/context/UserDetailsContext"
+import { OpenDialogContext } from "@/context/OpenDialogContext"
 
 export const Hero = () =>{
     const [userInput, setUserInput] = useState("")
+    const [message,setMessage] = useState(null)
+    const {userDetail,setUserDetail} = useContext(UserDetailsContext)
+    // const [openDialog,setOpenDialog] = useState(false)
+    const {openDialog,setOpenDialog} = useContext(OpenDialogContext)
+
+    const onGenerate = (input) =>{
+        if(!userDetail?.name){
+            setOpenDialog(true)
+            return
+        }
+
+
+        setMessage({
+
+
+            // for openai
+            // type:"text",
+            // role:"user",
+            // text:{userInput}
+            
+            //for gemini
+            role:"user",
+            content:input,
+        })
+    }
+
     return (
 
         <div className="flex flex-col items-center mt-36 xl:mt-42 gap-2">
@@ -30,7 +59,7 @@ export const Hero = () =>{
             )}
             {userInput && (
               <ArrowRight
-                // onClick={() => onGenerate(userInput)}
+                onClick={()=> onGenerate(userInput)}
                 className="bg-blue-500 p-2 w-10 h-10 rounded-md cursor-pointer"
               />
             )}
@@ -45,11 +74,13 @@ export const Hero = () =>{
             <h2
               className="p-1 px-2 border rounded-full text-sm text-gray-400 hover:text-white cursor-pointer"
               key={index}
-            //   onClick={() => onGenerate(suggestion)}
+              onClick={() => onGenerate(suggestion)}
             >
               {suggestion}
             </h2>
           ))}
         </div>
+        <SignInDialog open={openDialog} closeDialog= {(value) => setOpenDialog(false)}/>
+            
     </div>)
 }
